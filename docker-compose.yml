@@ -1,0 +1,114 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: eventmanagement-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: EventManagementDb
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - eventmanagement-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin - Database Management UI
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: eventmanagement-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@eventmanagement.sy
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - eventmanagement-network
+    depends_on:
+      - postgres
+
+  # Backend API (سيتم إضافته بعد إنشاء ABP Solution)
+  # backend:
+  #   build:
+  #     context: ./aspnet-core
+  #     dockerfile: Dockerfile
+  #   container_name: eventmanagement-backend
+  #   restart: unless-stopped
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS=https://+:443;http://+:80
+  #     - ConnectionStrings__Default=Host=postgres;Port=5432;Database=EventManagementDb;Username=postgres;Password=postgres123
+  #     - AuthServer__Authority=https://backend:443
+  #     - AuthServer__RequireHttpsMetadata=false
+  #   ports:
+  #     - "44300:443"
+  #     - "8080:80"
+  #   volumes:
+  #     - ./aspnet-core/src/EventManagement.HttpApi.Host/Logs:/app/Logs
+  #   networks:
+  #     - eventmanagement-network
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+
+  # Frontend Angular (سيتم إضافته بعد إنشاء ABP Solution)
+  # frontend:
+  #   build:
+  #     context: ./angular
+  #     dockerfile: Dockerfile
+  #   container_name: eventmanagement-frontend
+  #   restart: unless-stopped
+  #   environment:
+  #     - NODE_ENV=production
+  #   ports:
+  #     - "4200:80"
+  #   networks:
+  #     - eventmanagement-network
+  #   depends_on:
+  #     - backend
+
+  # Redis Cache (اختياري - للتحسينات المستقبلية)
+  redis:
+    image: redis:7-alpine
+    container_name: eventmanagement-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - eventmanagement-network
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  eventmanagement-network:
+    driver: bridge
+

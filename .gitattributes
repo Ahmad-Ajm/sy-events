@@ -1,0 +1,27 @@
+# Normalize line endings in Git; let Git convert to CRLF on checkout on Windows
+* text=auto
+
+# Ensure common text files are treated as text
+*.cs  text diff=csharp
+*.ts  text
+*.js  text
+*.json text
+*.csproj text eol=crlf
+*.sln text eol=crlf
+*.md  text
+*.yml text
+*.yaml text
+*.css text
+*.scss text
+
+# Treat common binary assets properly
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary

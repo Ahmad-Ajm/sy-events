@@ -1,0 +1,104 @@
+<div class="container py-3">
+  <h2 class="mb-3">إدارة السلايدر</h2>
+
+  <section class="card mb-4 p-3">
+    <h4 class="mb-2">الإعدادات العامة</h4>
+    <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()" class="row g-2 align-items-end">
+      <div class="col-sm-3">
+        <label class="form-label">عدد العناصر (2-6)</label>
+        <input type="number" min="2" max="6" class="form-control" formControlName="sliderItemsCount" />
+      </div>
+      <div class="col-sm-4 form-check mt-4">
+        <input id="autoApprove" type="checkbox" class="form-check-input" formControlName="autoApproveEvents" />
+        <label class="form-check-label" for="autoApprove">الموافقة التلقائية على الفعاليات المستقبلية</label>
+      </div>
+      <div class="col-sm-3">
+        <button class="btn btn-primary" type="submit" [disabled]="savingSettings() || settingsForm.invalid">
+          حفظ الإعدادات
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="card p-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h4 class="mb-0">عناصر السلايدر</h4>
+      <button class="btn btn-success" (click)="newItem()">عنصر جديد</button>
+    </div>
+
+    <div class="table-responsive mb-3">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>العنوان</th>
+            <th>النوع</th>
+            <th>فعالية مخصصة</th>
+            <th>نشط</th>
+            <th>صورة</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let it of items()">
+            <td>{{ it.displayOrder }}</td>
+            <td>{{ it.title }}</td>
+            <td>{{ it.type }}</td>
+            <td>{{ it.customEventId || '-' }}</td>
+            <td>
+              <span class="badge" [class.bg-success]="it.isActive" [class.bg-secondary]="!it.isActive">{{ it.isActive ? 'نعم' : 'لا' }}</span>
+            </td>
+            <td>
+              <img [src]="it.imageUrl || it.eventImageUrl" alt="image" style="width: 80px; height: 40px; object-fit: cover;" />
+            </td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-primary me-2" (click)="editItem(it)">تعديل</button>
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteItem(it.id)">حذف</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <form [formGroup]="itemForm" (ngSubmit)="saveItem()" class="row g-2">
+      <div class="col-sm-2">
+        <label class="form-label">الترتيب</label>
+        <input type="number" class="form-control" formControlName="displayOrder" />
+      </div>
+      <div class="col-sm-3">
+        <label class="form-label">العنوان (AR)</label>
+        <input type="text" class="form-control" formControlName="title" />
+      </div>
+      <div class="col-sm-3">
+        <label class="form-label">العنوان (EN)</label>
+        <input type="text" class="form-control" formControlName="titleEn" />
+      </div>
+      <div class="col-sm-2">
+        <label class="form-label">النوع</label>
+        <select class="form-select" formControlName="type">
+          <option [ngValue]="SliderItemType.Latest">Latest</option>
+          <option [ngValue]="SliderItemType.Popular">Popular</option>
+          <option [ngValue]="SliderItemType.Custom">Custom</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <label class="form-label">فعالية مخصصة (اختياري)</label>
+        <input type="text" class="form-control" formControlName="customEventId" placeholder="Event ID" />
+      </div>
+      <div class="col-sm-6">
+        <label class="form-label">رابط الصورة</label>
+        <input type="text" class="form-control" formControlName="imageUrl" />
+      </div>
+      <div class="col-sm-2 form-check mt-4">
+        <input id="isActive" type="checkbox" class="form-check-input" formControlName="isActive" />
+        <label class="form-check-label" for="isActive">نشط</label>
+      </div>
+      <div class="col-sm-4 text-end mt-2">
+        <button class="btn btn-primary" type="submit" [disabled]="savingItem() || itemForm.invalid">حفظ العنصر</button>
+      </div>
+    </form>
+  </section>
+  <p class="text-muted mt-3">ملاحظة: يتم تطبيق إعداد عدد العناصر على الصفحة العامة للسلايدر.</p>
+</div>
+
+

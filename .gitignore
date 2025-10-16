@@ -1,0 +1,83 @@
+###############
+# Global
+###############
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+###############
+# Angular App
+###############
+# Path based on your tree: D:\...\CS-SY-Events\angular
+angular/node_modules/
+angular/.angular/
+angular/dist/
+angular/coverage/
+angular/.cache/
+angular/.env*
+angular/npm-debug.log*
+angular/yarn*.log*
+
+# Optional: keep lockfiles to ensure reproducible installs
+# !angular/package-lock.json
+# !angular/yarn.lock
+# !angular/pnpm-lock.yaml
+
+###############
+# ASP.NET Core
+###############
+# Build artifacts (recursive for all projects under aspnet-core)
+aspnet-core/**/bin/
+aspnet-core/**/obj/
+aspnet-core/**/Logs/
+aspnet-core/**/TestResults/
+aspnet-core/**/.vs/
+
+# Unit test projects (big, not needed on server)
+aspnet-core/test/
+
+# HttpApi.Host specific heavies (from your size report)
+aspnet-core/src/EventManagement.HttpApi.Host/node_modules/
+aspnet-core/src/EventManagement.HttpApi.Host/wwwroot/libs/
+aspnet-core/src/EventManagement.HttpApi.Host/wwwroot/**/dist/
+aspnet-core/src/EventManagement.HttpApi.Host/wwwroot/**/build/
+aspnet-core/src/EventManagement.HttpApi.Host/wwwroot/**/bundles/
+
+# Keep your own static assets (images, uploads) if any
+!aspnet-core/src/EventManagement.HttpApi.Host/wwwroot/assets/**
+!aspnet-core/src/EventManagement.HttpApi.Host/wwwroot/images/**
+
+# DbMigrator outputs
+aspnet-core/src/EventManagement.DbMigrator/bin/
+aspnet-core/src/EventManagement.DbMigrator/obj/
+
+###############
+# EF Core extras (optional)
+###############
+# Designer/snapshot files are generated; you usually want to keep Migration .cs,
+# but can ignore these heavy byproducts if desired.
+# aspnet-core/**/Migrations/*Designer.cs
+# aspnet-core/**/Migrations/*Snapshot.cs
+
+###############
+# Secrets & local configs
+###############
+.env
+.env.*
+**/*.secrets.json
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/appsettings.*.override.json
+
+# npm/yarn/pnpm logs anywhere
+**/npm-debug.log*
+**/yarn*.log*
+**/pnpm-debug.log*
+Logs/

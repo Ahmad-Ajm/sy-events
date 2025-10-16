@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>EventManagement</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventManagement.Domain\EventManagement.Domain.csproj" />
+    <ProjectReference Include="..\EventManagement.Application.Contracts\EventManagement.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Account.Application" Version="9.3.5" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="9.3.5" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="9.3.5" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="9.3.5" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="9.3.5" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Application" Version="9.3.5" />
+    <PackageReference Include="Volo.Abp.BlobStoring" Version="9.3.5" />
+  </ItemGroup>
+
+</Project>

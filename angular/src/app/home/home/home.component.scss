@@ -1,0 +1,302 @@
+/* Styles for the home component - منصة إدارة الفعاليات */
+
+.home-page {
+  min-height: 100vh;
+}
+
+.hero-slider {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+  margin-bottom: 0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hero-slider .carousel-item {
+  height: 600px;
+  position: relative;
+}
+
+.hero-slider .carousel-item img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  filter: brightness(0.8);
+  transition: transform 0.3s ease;
+}
+
+.carousel-item:hover img {
+  transform: scale(1.05);
+}
+
+.carousel-caption {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  border-radius: 15px;
+  padding: 30px;
+  bottom: 80px;
+  left: 60px;
+  right: 60px;
+  backdrop-filter: blur(10px);
+}
+
+.caption-content h2 {
+  color: white;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.caption-content p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.event-date {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 15px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.carousel-indicators {
+  bottom: 30px;
+}
+
+.carousel-indicators button {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 0 8px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.carousel-indicators button.active {
+  background-color: #007bff;
+  border-color: #007bff;
+  transform: scale(1.2);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background: rgba(0, 123, 255, 0.8);
+  border-color: #007bff;
+}
+
+.carousel-control-prev {
+  left: 30px;
+}
+
+.carousel-control-next {
+  right: 30px;
+}
+
+/* Featured boxes */
+.featured-boxes {
+  margin-top: 60px;
+}
+
+.featured-boxes .card {
+  border: none;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.featured-boxes .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.featured-boxes .card-body {
+  padding: 2rem;
+}
+
+.featured-boxes .card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.featured-boxes .card-text {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Welcome section */
+.welcome-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 20px;
+  padding: 3rem;
+  margin: 3rem 0;
+}
+
+.welcome-section h2 {
+  color: #007bff;
+  font-weight: 700;
+}
+
+.welcome-section .lead {
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+/* Loading and empty states */
+.loading-spinner {
+  margin: 4rem 0;
+}
+
+.empty-state {
+  margin: 4rem 0;
+  padding: 3rem;
+}
+
+.empty-state i {
+  opacity: 0.6;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .hero-slider {
+    height: 500px;
+  }
+  
+  .hero-slider .carousel-item {
+    height: 500px;
+  }
+  
+  .caption-content h2 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 400px;
+  }
+  
+  .hero-slider .carousel-item {
+    height: 400px;
+  }
+  
+  .carousel-caption {
+    bottom: 30px;
+    left: 20px;
+    right: 20px;
+    padding: 20px;
+  }
+  
+  .caption-content h2 {
+    font-size: 2rem;
+  }
+  
+  .caption-content p {
+    font-size: 1rem;
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .carousel-control-prev {
+    left: 15px;
+  }
+  
+  .carousel-control-next {
+    right: 15px;
+  }
+  
+  .welcome-section {
+    padding: 2rem;
+  }
+  
+  .welcome-section h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-slider {
+    height: 350px;
+  }
+  
+  .hero-slider .carousel-item {
+    height: 350px;
+  }
+  
+  .caption-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .featured-boxes .card-body {
+    padding: 1.5rem;
+  }
+  
+  .welcome-section {
+    padding: 1.5rem;
+  }
+}
+
+/* RTL Support */
+[dir="rtl"] .carousel-control-prev {
+  right: 30px;
+  left: auto;
+}
+
+[dir="rtl"] .carousel-control-next {
+  left: 30px;
+  right: auto;
+}
+
+[dir="rtl"] .carousel-caption {
+  text-align: right;
+}
+
+/* Animation effects */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.caption-content {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.featured-boxes .card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.featured-boxes .card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.featured-boxes .card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+

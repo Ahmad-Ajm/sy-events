@@ -1,0 +1,18 @@
+.container {
+  direction: rtl;
+}
+
+.card {
+  border: 1px solid var(--lpx-border-color, #e5e7eb);
+  border-radius: 0.5rem;
+}
+
+table img {
+  border-radius: 6px;
+}
+
+button + button {
+  margin-inline-start: .5rem;
+}
+
+
