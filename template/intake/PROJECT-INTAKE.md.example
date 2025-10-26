@@ -1,0 +1,44 @@
+# Project Intake — Template
+
+املأ هذا النموذج قبل البدء بالتوليد.
+
+## مصادر التحليل
+- روابط/مسارات docs: `{{DOCS_PATHS}}`
+- هل توجد ملفات: `CS-SY-Events/prompt.txt` و `prompt2.txt`؟ ☐ نعم ☐ لا
+
+## هوية المشروع
+- Solution Name: {{SOLUTION_NAME}}
+- Root Namespace: {{ROOT_NAMESPACE}}
+- Modules: {{MODULES_LIST}}
+
+## قاعدة البيانات
+- DB: PostgreSQL (الإصدار؟) {{POSTGRES_VERSION}}
+- Connection String: {{CONNECTION_STRING}}
+- Seed: مدن/تصنيفات (قائمة): {{SEED_LIST}}
+
+## الأمن
+- Auth Issuer: {{AUTH_AUTHORITY}}
+- ClientId (Swagger/Angular): {{CLIENT_IDS}}
+- CORS Origins: {{CORS_ORIGINS}}
+- Security Headers سياسة: {{HEADERS_POLICY}}
+
+## الواجهة الأمامية
+- Frontend URL: {{FRONTEND_URL}}
+- عناصر القائمة ومساراتها + requiredPolicy: {{MENU_ITEMS}}
+- صفحات مطلوبة: Home, Events List/Detail, Calendar, Account, Admin
+- RTL: لغة افتراضية؟ {{DEFAULT_LANG}}
+
+## الـ API
+- مصدر OpenAPI: `ana-docs/openapi.yaml` أم `template/api/openapi.yaml.example`؟ {{OPENAPI_SOURCE}}
+- فلاتر البحث المتقدمة (organizer, minAttendees, upcoming/past): {{ADV_FILTERS}}
+
+## الثيم والأداء
+- LeptonX customization (ألوان/وضع ليلي): {{THEME_PLAN}}
+- Performance targets (p95/p99): {{PERF_TARGETS}}
+
+## التكاملات
+- Weaviate: مخطط/مفاتيح؟ {{WEAVIATE_INFO}}
+- n8n: Flows؟ {{N8N_INFO}}
+
+أي حقل غير واضح: اكتب "القيمة غير واضحة في المشروع".
+

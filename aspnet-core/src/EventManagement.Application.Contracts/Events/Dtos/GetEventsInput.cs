@@ -22,6 +22,9 @@ namespace EventManagement.Events.Dtos
         public Guid? OrganizerId { get; set; } // المنظم
         public bool? IsUpcoming { get; set; } // قادم (true) أو منقضي (false) أو الكل (null)
         public int? MinAttendees { get; set; } // عدد الحضور أكبر من X
+
+        // فلتر نصي على اسم المنظم
+        public string OrganizerFilter { get; set; } = string.Empty;
     }
 }
 

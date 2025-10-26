@@ -1,0 +1,12 @@
+{
+  "Permission:App": "إدارة التطبيق",
+  "Permission:Resource": "المورد",
+  "Permission:Resource.Create": "إنشاء",
+  "Permission:Resource.Edit": "تعديل",
+  "Permission:Resource.Delete": "حذف",
+  "Permission:Resource.Approve": "اعتماد",
+  "Permission:Relation": "العلاقات",
+  "Permission:Relation.Create": "إنشاء علاقة",
+  "Permission:Relation.UpdateState": "تحديث حالة",
+  "Permission:Taxonomy": "التصنيفات"
+}

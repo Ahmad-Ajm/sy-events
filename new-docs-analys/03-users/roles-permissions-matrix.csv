@@ -1,0 +1,34 @@
+Role,ABP Permission,Module,Description
+Admin,EventManagement.Admin,Administration,Access admin area
+Admin,EventManagement.Events,Events,View events
+Admin,EventManagement.Events.Create,Events,Create events
+Admin,EventManagement.Events.Edit,Events,Edit events
+Admin,EventManagement.Events.Delete,Events,Delete events
+Admin,EventManagement.Events.Approve,Events,Approve/Reject events
+Admin,EventManagement.Bookings,Bookings,View bookings
+Admin,EventManagement.Bookings.Create,Bookings,Follow/Unfollow events
+Admin,EventManagement.Bookings.MarkAttended,Bookings,Confirm attendance
+Admin,EventManagement.Categories,Categories,View categories
+Admin,EventManagement.Categories.Create,Categories,Create
+Admin,EventManagement.Categories.Edit,Categories,Edit
+Admin,EventManagement.Categories.Delete,Categories,Delete
+Admin,EventManagement.Cities,Cities,View cities
+Admin,EventManagement.Cities.Create,Cities,Create
+Admin,EventManagement.Cities.Edit,Cities,Edit
+Admin,EventManagement.Cities.Delete,Cities,Delete
+Admin,EventManagement.Reports,Reports,View reports
+Admin,EventManagement.Reports.Export,Reports,Export CSV
+
+Organizer,EventManagement.Events,Events,View own events
+Organizer,EventManagement.Events.Create,Events,Create own events
+Organizer,EventManagement.Events.Edit,Events,Edit own events
+Organizer,EventManagement.Bookings,Bookings,View own bookings
+Organizer,EventManagement.Bookings.Create,Bookings,Invite/Follow participants
+
+Editor,EventManagement.Events,Events,View events
+Editor,EventManagement.Events.Edit,Events,Edit events (policy-defined)
+
+Support,EventManagement.Bookings,Bookings,View/Assist bookings
+
+Viewer,EventManagement.Events,Events,View events
+Viewer,EventManagement.Bookings.Create,Bookings,Follow events

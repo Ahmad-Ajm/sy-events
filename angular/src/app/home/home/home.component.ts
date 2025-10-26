@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HomeSliderService } from '../../proxy/home-slider/home-slider.service';
-import { HomeSliderItemDto } from '../../proxy/home-slider/models';
+import { HomeSliderItemDto } from '../../proxy/home-slider/dtos/models';
 import { EventService } from '../../proxy/event.service';
 import { EventDto } from '../../proxy/events/dtos/models';
+import { FeaturedBoxesComponent } from '../featured-boxes/featured-boxes.component';
+import { ThemeService } from '../../shared/theme.service';
+import { LoginSocialButtonsComponent } from '../../shared/login-social-buttons.component';
 
 // تعليق: مكون الصفحة الرئيسية العامة - يعرض السلايدر والفعاليات
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, FeaturedBoxesComponent, LoginSocialButtonsComponent],
   template: `
     <!-- الصفحة الرئيسية المخصصة لمنصة إدارة الفعاليات -->
     <div class="home-page">
@@ -38,10 +42,10 @@ import { EventDto } from '../../proxy/events/dtos/models';
               [class.active]="i === 0">
               <!-- عرض صورة الفعالية أو الصورة المخصصة -->
               <img 
-                [src]="item.eventImageUrl || item.imageUrl || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=500&fit=crop'" 
+                [src]="resolveImageUrl(item.eventImageUrl || item.imageUrl)" 
+                (error)="onImgError($event)"
                 class="d-block w-100 slider-image" 
-                [alt]="item.eventTitle || item.title"
-                onerror="this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=500&fit=crop'">
+                [alt]="item.eventTitle || item.title">
               
               <!-- Caption -->
               <div class="carousel-caption d-none d-md-block">
@@ -78,6 +82,9 @@ import { EventDto } from '../../proxy/events/dtos/models';
           </button>
         </div>
       </section>
+
+      <!-- تعليق: المربعات الثلاث المميزة تحت السلايدر -->
+      <app-featured-boxes></app-featured-boxes>
 
       <!-- Loading Spinner -->
       <div *ngIf="loading" class="text-center p-5">
@@ -172,6 +179,10 @@ import { EventDto } from '../../proxy/events/dtos/models';
                 <i class="fas fa-user-plus me-2"></i>
                 انضم إلينا
               </a>
+              <button class="btn btn-outline-secondary btn-lg" (click)="toggleTheme()">
+                <i class="fas" [class.fa-moon]="!isDark" [class.fa-sun]="isDark"></i>
+                تبديل الثيم
+              </button>
             </div>
           </div>
           <div class="col-lg-6">
@@ -180,6 +191,9 @@ import { EventDto } from '../../proxy/events/dtos/models';
                  alt="فعاليات سوريا">
           </div>
         </div>
+      </section>
+      <section class="container my-3">
+        <login-social-buttons [issuer]="issuer" [returnUrl]="'/events'"></login-social-buttons>
       </section>
     </div>
   `,
@@ -194,10 +208,15 @@ export class HomeComponent implements OnInit {
   latestEvents: EventDto[] = [];
   popularEvents: EventDto[] = [];
   customEvents: EventDto[] = [];
+  isDark = false;
+  issuer = environment.oAuthConfig.issuer;
+  private readonly fallbackImage = 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=500&fit=crop';
 
-  constructor(private sliderService: HomeSliderService, private eventService: EventService) {}
+  constructor(private sliderService: HomeSliderService, private eventService: EventService, private theme: ThemeService) {}
 
   ngOnInit() {
+    this.theme.applyCurrent();
+    this.isDark = this.theme.isDark();
     this.loadSliderItems();
     this.loadFeaturedBoxes();
   }
@@ -236,5 +255,37 @@ export class HomeComponent implements OnInit {
   followEvent() {
     const returnUrl = '/events';
     window.location.href = '/account/login?returnUrl=' + encodeURIComponent(returnUrl);
+  }
+
+  // تعليق: تبديل الثيم وتحديث الحالة
+  toggleTheme(): void {
+    this.theme.toggle();
+    this.isDark = this.theme.isDark();
+  }
+
+  // تعليق: معالجة مسار صور السلايدر
+  resolveImageUrl(url?: string | null): string {
+    if (!url) {
+      return this.fallbackImage;
+    }
+    const trimmed = url.trim();
+    if (/\/images\/events\/default/i.test(trimmed)) {
+      return this.fallbackImage;
+    }
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:') || trimmed.startsWith('/assets/')) {
+      return trimmed;
+    }
+    if (trimmed.startsWith('/images/')) {
+      return `${environment.apis.default.url}${trimmed}`;
+    }
+    return trimmed || this.fallbackImage;
+  }
+
+  // تعليق: فfallback عند فشل التحميل
+  onImgError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && img.src !== this.fallbackImage) {
+      img.src = this.fallbackImage;
+    }
   }
 }

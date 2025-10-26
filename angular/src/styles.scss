@@ -11,7 +11,31 @@
 :root {
   --lpx-logo: url('/assets/images/logo/logo-light.png');
   --lpx-logo-icon: url('/assets/images/logo/logo-light-thumbnail.png');
+  /* Theme variables */
+  --color-primary: #0d6efd;
+  --color-secondary: #6c757d;
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-text: #212529;
 }
+
+body.theme-dark {
+  --color-primary: #66b2ff;
+  --color-secondary: #9aa0a6;
+  --color-bg: #121212;
+  --color-surface: #1e1e1e;
+  --color-text: #e9ecef;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Utility classes that leverage variables */
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.text-primary { color: var(--color-primary) !important; }
 .donut {
   display: inline-block;
   border: 4px solid rgba(0, 0, 0, 0.1);

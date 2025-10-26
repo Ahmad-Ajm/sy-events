@@ -1,0 +1,55 @@
+# Backend Contracts (DTOs & Interfaces) — Template (Domain-Agnostic)
+
+## Entities (Example)
+```csharp
+public class EntityDtoModel : FullAuditedEntityDto<Guid>
+{
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public DateTime StartAt { get; set; }
+    public DateTime EndAt { get; set; }
+    public string Location { get; set; }
+    public Guid TaxonomyAId { get; set; }
+    public Guid TaxonomyBId { get; set; }
+}
+
+public class CreateUpdateEntityDto
+{
+    [Required, StringLength(300)] public string Name { get; set; }
+    [Required] public string Description { get; set; }
+    [Required] public DateTime StartAt { get; set; }
+    [Required] public DateTime EndAt { get; set; }
+    [Required, StringLength(400)] public string Location { get; set; }
+    [Required] public Guid TaxonomyAId { get; set; }
+    [Required] public Guid TaxonomyBId { get; set; }
+}
+
+public interface IEntityAppService : ICrudAppService<
+    EntityDtoModel, Guid, PagedAndSortedResultRequestDto, CreateUpdateEntityDto>
+{
+    Task<EntityDtoModel> ApproveAsync(Guid id);
+}
+```
+
+## Taxonomies (Example — replace with your own)
+- TaxonomyA (e.g., Category)
+- TaxonomyB (e.g., City/Group)
+
+## Associations/Relations (Example)
+```csharp
+public class RelationDto : EntityDto<Guid>
+{
+    public Guid SubjectId { get; set; }
+    public Guid ObjectId { get; set; }
+    public int State { get; set; } // enum as needed
+}
+
+public interface IRelationAppService : IApplicationService
+{
+    Task CreateAsync(Guid subjectId, Guid objectId);
+    Task RemoveAsync(Guid subjectId, Guid objectId);
+    Task MarkAsync(Guid relationId, int state);
+}
+```
+
+استبدل {{PLACEHOLDER}} والقيم النموذجية بما يلائم نطاق مشروعك.

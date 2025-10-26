@@ -1,0 +1,39 @@
+[
+  {
+    "id": "install-packages",
+    "type": "installPackages",
+    "payload": {
+      "packages": [
+        "dotnet-sdk",
+        "dotnet-runtime"
+      ],
+      "cpmEnabled": true
+    }
+  },
+  {
+    "id": "run-tests",
+    "type": "runTests",
+    "payload": {
+      "project": "path/to/your/project.csproj",
+      "filter": "Category=UnitTests"
+    }
+  },
+  {
+    "id": "generate-launch",
+    "type": "generateLaunch",
+    "payload": {
+      "project": "path/to/your/project.csproj"
+    }
+  },
+  {
+    "id": "generate-tasks",
+    "type": "generateTasks",
+    "payload": {
+      "project": "path/to/your/project.csproj"
+    }
+  },
+  {
+    "id": "self-test",
+    "type": "selfTest"
+  }
+]

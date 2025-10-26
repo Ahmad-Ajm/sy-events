@@ -2,8 +2,8 @@
 
 منصة شاملة ومتكاملة لإدارة الفعاليات والأحداث في سوريا، مبنية باستخدام ABP Framework وAngular مع LeptonX Theme.
 
-**الحالة**: 85% مكتمل - جاهز للإنتاج التجريبي (Beta)  
-**آخر تحديث**: 14 أكتوبر 2025
+**الحالة**: ~80% مكتمل - جاهز للإنتاج التجريبي (Beta)  
+**آخر تحديث**: 20 أكتوبر 2025
 
 ## 🚀 نظرة عامة
 
@@ -110,6 +110,13 @@ npm start                     # تشغيل Angular
 
 Frontend سيعمل على: **http://localhost:4200**
 
+تشغيل المتصفح Chrome debugging
+Start-Process -FilePath "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" -ArgumentList "--remote-debugging-port=9222"
+
+
+Start-Process -FilePath 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe' -ArgumentList '--remote-debugging-port=9222','--user-data-dir=C:\ChromeDebug','http://localhost:4200
+
+
 ### 6. تسجيل الدخول
 ```
 Username: admin
@@ -192,6 +199,20 @@ CS-SY-Events/
 - إدارة التصنيفات والمدن
 - الإعدادات العامة
 - Audit Logs (سجل التدقيق)
+
+### 🔜 SEO & CMS (مراحل جديدة)
+- إدارة `sitemap.xml` و`robots.txt` من لوحة الإدارة
+- CMS مبسّط للصفحات العامة والقوائم (Main/Footer)
+- صفحة إعدادات SEO عامة (Meta defaults/OG/Canonical/UTM)
+- حقول SEO للفعاليات (meta/canonical/tags/og:image) + توليد OG image اختياري
+
+### 🔜 تعزيزات المنصة
+- Social Share Backend (Telegram/WhatsApp/Facebook) بقوالب ديناميكية
+- Popularity آخر 30 يوماً والفرز الافتراضي
+- تصدير CSV فعلي بفلاتر
+- reCAPTCHA v3 اختياري
+- تذكيرات الحجوزات (1/24/72/168 ساعة)
+- WebP/Thumbnails والزام alt للصور
 
 ### ✅ مميزات إضافية
 - Multi-language (Arabic/English) مع RTL
@@ -291,6 +312,8 @@ npm run e2e              # E2E tests
 
 ### ملفات مهمة
 - **PLAN.md** - خطة المشروع الكاملة مع جميع المراحل
+- **STATUS.md** - حالة المشروع المحدثة
+- **specs/PROJECT-SPEC.md** - مواصفات المشروع (النطاق والمتطلبات والواجهات)
 - **docs/getting-started.md** - دليل البدء التفصيلي
 - **docs/api-documentation.md** - توثيق API
 - **docs/deployment.md** - دليل النشر

@@ -36,7 +36,7 @@ namespace EventManagement
             _bookingRepository = bookingRepository;
 
             // تعليق: السماح للزوار بعرض قائمة الأحداث بدون تسجيل دخول
-            GetPolicyName = EventManagementPermissions.Events.Default;
+            GetPolicyName = null;
             GetListPolicyName = null; // إتاحة القائمة للجميع
             CreatePolicyName = EventManagementPermissions.Events.Create;
             UpdatePolicyName = EventManagementPermissions.Events.Edit;
@@ -59,9 +59,25 @@ namespace EventManagement
             return await base.GetListAsync(input);
         }
 
+        [AllowAnonymous]
+        public override async Task<EventDto> GetAsync(Guid id)
+        {
+            var queryable = await Repository.WithDetailsAsync(x => x.Category, x => x.City, x => x.Organizer, x => x.Bookings);
+            var entity = await AsyncExecuter.FirstOrDefaultAsync(queryable.Where(e => e.Id == id));
+
+            if (entity == null)
+            {
+                throw new Volo.Abp.Domain.Entities.EntityNotFoundException(typeof(Events.Event), id);
+            }
+
+            return await MapToGetOutputDtoAsync(entity);
+        }
+
         protected override async Task<IQueryable<Events.Event>> CreateFilteredQueryAsync(GetEventsInput input)
         {
-            var queryable = await Repository.GetQueryableAsync();
+            // تعليق: استخدام WithDetailsAsync لتحميل العلاقات وتجنب أخطاء Null Reference
+            // إضافة Bookings لضمان عدم كون المجموعة null أثناء حساب السعة المتاحة
+            var queryable = await Repository.WithDetailsAsync(x => x.Category, x => x.City, x => x.Organizer, x => x.Bookings);
 
             // تعليق: البحث النصي في العنوان والوصف
             if (!input.Filter.IsNullOrWhiteSpace())
@@ -99,6 +115,10 @@ namespace EventManagement
             if (input.OrganizerId.HasValue)
             {
                 queryable = queryable.Where(x => x.OrganizerId == input.OrganizerId);
+            }
+            if (!input.OrganizerFilter.IsNullOrWhiteSpace())
+            {
+                queryable = queryable.Where(x => x.Organizer.Name.Contains(input.OrganizerFilter));
             }
             
             // فلتر منقضي/قادم
@@ -152,12 +172,13 @@ namespace EventManagement
         [AllowAnonymous]
         public async Task<List<EventDto>> GetPopularEventsAsync(int count = 10)
         {
-            var queryable = await Repository.GetQueryableAsync();
-            var items = queryable
-                .Where(x => x.IsApproved && x.Status == EventStatus.Approved)
-                .OrderByDescending(x => x.StartDate) // تم التعديل: ترتيب حسب التاريخ بدلاً من الحجوزات لتجنب مشكلة Navigation
-                .Take(count)
-                .ToList();
+            var queryable = await Repository.WithDetailsAsync(x => x.Category, x => x.City, x => x.Organizer, x => x.Bookings);
+            var items = await AsyncExecuter.ToListAsync(
+                queryable
+                    .Where(x => x.IsApproved && x.Status == EventStatus.Approved)
+                    .OrderByDescending(x => x.StartDate)
+                    .Take(count)
+            );
             return ObjectMapper.Map<List<Events.Event>, List<EventDto>>(items);
         }
 
@@ -165,12 +186,13 @@ namespace EventManagement
         [AllowAnonymous]
         public async Task<List<EventDto>> GetUpcomingEventsAsync(int count = 10)
         {
-            var queryable = await Repository.GetQueryableAsync();
-            var items = queryable
-                .Where(x => x.IsApproved && x.Status == EventStatus.Approved && x.StartDate > DateTime.UtcNow)
-                .OrderBy(x => x.StartDate)
-                .Take(count)
-                .ToList();
+            var queryable = await Repository.WithDetailsAsync(x => x.Category, x => x.City, x => x.Organizer, x => x.Bookings);
+            var items = await AsyncExecuter.ToListAsync(
+                queryable
+                    .Where(x => x.IsApproved && x.Status == EventStatus.Approved && x.StartDate > DateTime.UtcNow)
+                    .OrderBy(x => x.StartDate)
+                    .Take(count)
+            );
             return ObjectMapper.Map<List<Events.Event>, List<EventDto>>(items);
         }
 

@@ -1,0 +1,43 @@
+{
+  "at": "2025-10-16T06:27:48.885Z",
+  "results": [
+    {
+      "id": "install-packages",
+      "type": "installPackages",
+      "ok": false,
+      "error": "Error: No valid packages provided in payload. Expected { packages: [{id:\"<pkg_id>\", version:\"<pkg_ver>\"}] }"
+    },
+    {
+      "id": "run-tests",
+      "type": "runTests",
+      "ok": false,
+      "error": "Error: spawn dotnet ENOENT"
+    },
+    {
+      "id": "generate-launch",
+      "type": "generateLaunch",
+      "ok": true,
+      "result": {
+        "ok": true
+      }
+    },
+    {
+      "id": "generate-tasks",
+      "type": "generateTasks",
+      "ok": true,
+      "result": {
+        "ok": true
+      }
+    },
+    {
+      "id": "self-test",
+      "type": "selfTest",
+      "ok": true,
+      "result": {
+        "workspaceFolders": [
+          "CS-SY-Events"
+        ]
+      }
+    }
+  ]
+}

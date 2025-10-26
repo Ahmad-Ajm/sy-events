@@ -1,0 +1,16 @@
+{
+  "classes": [
+    {
+      "class": "Resource",
+      "description": "Generic documents",
+      "vectorizer": "text2vec-openai",
+      "properties": [
+        { "name": "name", "dataType": ["text"] },
+        { "name": "description", "dataType": ["text"] },
+        { "name": "taxonomyA", "dataType": ["text"] },
+        { "name": "taxonomyB", "dataType": ["text"] },
+        { "name": "startAt", "dataType": ["date"] }
+      ]
+    }
+  ]
+}

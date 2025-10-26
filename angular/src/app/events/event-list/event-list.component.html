@@ -43,6 +43,10 @@
         </select>
       </div>
       <div class="col-md-3">
+        <label class="form-label">المنظّم</label>
+        <input type="text" class="form-control" placeholder="بريد المنظم أو اسمه" [(ngModel)]="filters.organizerFilter" (ngModelChange)="applyFilters()" />
+      </div>
+      <div class="col-md-3">
         <label class="form-label">عدد الحضور (أكبر من)</label>
         <input type="number" class="form-control" placeholder="0" [(ngModel)]="filters.minAttendees" (ngModelChange)="applyFilters()" />
       </div>
@@ -56,77 +60,58 @@
   </div>
   
   <div class="card-body">
-    <ngx-datatable
-      [rows]="events.items"
-      [count]="events.totalCount"
-      [list]="list"
-      default>
-      <ngx-datatable-column [name]="'::Title' | abpLocalization" prop="title">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.title }}
-        </ng-template>
-      </ngx-datatable-column>
+    <!-- شبكة بطاقات الفعاليات بأسلوب حديث -->
+    <div class="row g-4">
+      <div class="col-md-4" *ngFor="let row of events.items">
+        <div class="event-card">
+          <img class="event-image" [src]="resolveImageUrl(row.imageUrl)" (error)="onImgError($event)" [alt]="row.title">
 
-      <ngx-datatable-column [name]="'::Category' | abpLocalization" prop="categoryName">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.categoryName }}
-        </ng-template>
-      </ngx-datatable-column>
+          <!-- شريط علوي: العنوان يمين، التاريخ يسار (RTL) -->
+          <div class="overlay-top">
+            <h5 class="event-title">{{ row.title }}</h5>
+            <div class="event-date">
+              <i class="fa fa-calendar-alt ms-1"></i>
+              {{ row.startDate | date:'dd/MM/yyyy' }}
+            </div>
+          </div>
 
-      <ngx-datatable-column [name]="'::City' | abpLocalization" prop="cityName">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.cityName }}
-        </ng-template>
-      </ngx-datatable-column>
+          <!-- شريط سفلي: زر متابعة أسفل يسار داخل الصورة -->
+          <div class="overlay-bottom">
+            <a class="btn btn-outline-light btn-sm follow-btn" [routerLink]="['/events', row.id]">
+              <i class="fa fa-eye ms-1"></i> متابعة
+            </a>
+          </div>
+        </div>
 
-      <ngx-datatable-column [name]="'::StartDate' | abpLocalization" prop="startDate">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row.startDate | date: 'short' }}
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column [name]="'::Status' | abpLocalization" prop="status">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          <span class="badge" [class.bg-success]="row.status === EventStatus.Approved"
-                [class.bg-warning]="row.status === EventStatus.Pending"
-                [class.bg-secondary]="row.status === EventStatus.Draft"
-                [class.bg-danger]="row.status === EventStatus.Rejected">
-            {{ '::Enum:EventStatus.' + row.status | abpLocalization }}
-          </span>
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column [name]="'::Actions' | abpLocalization" [maxWidth]="520" [sortable]="false">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          <div class="btn-group btn-group-sm" role="group">
-            <button class="btn btn-primary" (click)="editEvent(row.id)" title="{{ '::Edit' | abpLocalization }}">
+        <!-- مجموعة أزرار الإجراءات تحت البطاقة -->
+        <div class="event-actions mt-2 d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <div class="btn-group btn-group-sm me-2 mb-2" role="group">
+            <button class="btn btn-primary" (click)="editEvent(row.id)" title="{{ '::Edit' | abpLocalization }}" aria-label="{{ '::Edit' | abpLocalization }}">
               <i class="fa fa-edit"></i>
             </button>
-            <label class="btn btn-info mb-0" [attr.title]="('::Upload' | abpLocalization)">
+            <label class="btn btn-info mb-0" [attr.title]="('::Upload' | abpLocalization)" aria-label="{{ '::Upload' | abpLocalization }}">
               <i class="fa fa-upload"></i>
               <input type="file" class="d-none" (change)="onUpload($event, row.id)" />
             </label>
-            <!-- رفع متعدد: صور + PDF + TXT -->
             <app-file-upload [eventId]="row.id"></app-file-upload>
-            <button *ngIf="row.status === EventStatus.Pending" class="btn btn-success" (click)="approveEvent(row.id)" title="{{ '::Approve' | abpLocalization }}">
+          </div>
+          <div class="btn-group btn-group-sm mb-2" role="group">
+            <button *ngIf="row.status === EventStatus.Pending" class="btn btn-success" (click)="approveEvent(row.id)" title="{{ '::Approve' | abpLocalization }}" aria-label="{{ '::Approve' | abpLocalization }}">
               <i class="fa fa-check"></i>
             </button>
-            <button *ngIf="row.status === EventStatus.Pending" class="btn btn-warning" (click)="rejectEvent(row.id)" title="{{ '::Reject' | abpLocalization }}">
+            <button *ngIf="row.status === EventStatus.Pending" class="btn btn-warning" (click)="rejectEvent(row.id)" title="{{ '::Reject' | abpLocalization }}" aria-label="{{ '::Reject' | abpLocalization }}">
               <i class="fa fa-times"></i>
             </button>
-            <button class="btn btn-danger" (click)="deleteEvent(row.id)" title="{{ '::Delete' | abpLocalization }}">
+            <button class="btn btn-danger" (click)="deleteEvent(row.id)" title="{{ '::Delete' | abpLocalization }}" aria-label="{{ '::Delete' | abpLocalization }}">
               <i class="fa fa-trash"></i>
             </button>
-            <button class="btn btn-outline-secondary" (click)="followSelected()" title="متابعة الفعالية">
-              <i class="fa fa-eye"></i>
-            </button>
-            <a class="btn btn-outline-info" [routerLink]="['/events', row.id]" title="عرض">
+            <a class="btn btn-outline-info" [routerLink]="['/events', row.id]" title="عرض" aria-label="عرض">
               <i class="fa fa-external-link"></i>
             </a>
           </div>
-        </ng-template>
-      </ngx-datatable-column>
-    </ngx-datatable>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

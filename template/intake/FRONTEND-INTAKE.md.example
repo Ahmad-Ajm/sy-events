@@ -1,0 +1,25 @@
+# Frontend Intake — Template
+
+## Environment
+- BACKEND_URL: {{BACKEND_URL}}
+- AUTH_AUTHORITY: {{AUTH_AUTHORITY}}
+- CLIENT_ID: {{CLIENT_ID}}
+
+## Navigation & Policies
+- Menu items with requiredPolicy: {{MENU_ITEMS}}
+
+## Pages/Components
+- Events: list/detail/create/edit components? {{EVENTS_COMPONENTS}}
+- Calendar page features (colors/legend/click-to-open): {{CALENDAR_FEATURES}}
+- Home: slider (Latest/Popular/Custom, 2–6), featured boxes (3): {{HOME_WIDGETS}}
+- Account: profile fields editable: {{PROFILE_FIELDS}}
+
+## i18n & RTL
+- Default language, keys coverage: {{I18N}}
+
+## Theme
+- LeptonX custom variables, dark mode: {{THEME}}
+
+## Validation/Forms
+- Required fields and constraints: {{FORMS_VALIDATION}}
+

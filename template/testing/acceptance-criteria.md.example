@@ -1,0 +1,16 @@
+# Acceptance Criteria — Template (Domain-Agnostic)
+
+## Resource CRUD
+- Given valid resource data
+- When POST /api/app/resource
+- Then the resource is created with default state
+
+## Approve Resource
+- Given resource in Pending
+- When POST /api/app/resource/{id}/approve
+- Then state=Approved
+
+## Listing & Filters
+- Given filters
+- When GET /api/app/resource?filter=...
+- Then returns items matching filters

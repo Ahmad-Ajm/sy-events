@@ -10,6 +10,7 @@ using EventManagement.HomeSlider;
 using EventManagement.Users;
 using EventManagement.Meetings;
 using EventManagement.Settings;
+using EventManagement.FeaturedBoxes;
 
 namespace EventManagement.EntityFrameworkCore
 {
@@ -24,6 +25,7 @@ namespace EventManagement.EntityFrameworkCore
         public DbSet<User> Users { get; set; }
         public DbSet<HomeSliderItem> HomeSliderItems { get; set; }
         public DbSet<AppSettings> AppSettings { get; set; }
+        public DbSet<FeaturedBox> FeaturedBoxes { get; set; }
         
         // تعليق: الجداول الجديدة (Advanced Features)
         public DbSet<EventFile> EventFiles { get; set; }

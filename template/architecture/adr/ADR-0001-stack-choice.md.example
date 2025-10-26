@@ -1,0 +1,12 @@
+# ADR-0001: Stack Choice
+
+## Decision
+- .NET 8 + ABP.io + Angular + PostgreSQL + LeptonX
+
+## Context
+- سرعة التطوير، صلاحيات جاهزة، دعم i18n/RTL، Theme متوافق.
+
+## Consequences
+- اعتماد ABP conventions وCLI
+- تعلم LeptonX وABP policies
+

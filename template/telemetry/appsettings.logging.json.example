@@ -1,0 +1,12 @@
+{
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.Console" ],
+    "MinimumLevel": "Information",
+    "WriteTo": [ { "Name": "Console" } ]
+  },
+  "OpenTelemetry": {
+    "Enabled": false,
+    "Exporter": "otlp",
+    "OtlpEndpoint": "{{OTLP_ENDPOINT}}"
+  }
+}

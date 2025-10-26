@@ -1,0 +1,25 @@
+# Backend Intake — Template
+
+## Assemblies/Namespaces
+- Solution/Projects/Namespaces: {{NAMESPACES}}
+
+## Domain/DTOs
+- Entities: {{ENTITIES_LIST}}
+- DTOs النهائية (Event, City, Category, Booking): {{DTOS_STATUS}}
+
+## Permissions/Policies
+- Permissions list: {{PERMISSIONS}}
+- Localization for permissions: {{PERMISSIONS_I18N}}
+
+## API
+- Endpoints deviations from OpenAPI: {{DEVIATIONS}}
+- Bulk Approve behavior: {{BULK_APPROVE}}
+
+## Files/Storage
+- Upload path: {{UPLOAD_PATH}}
+- Limits (MB) and MIME whitelist: {{LIMITS}}
+- WebP thumbnails: {{WEBP_POLICY}}
+
+## Reports/Export
+- CSV filters and columns: {{CSV_SPEC}}
+

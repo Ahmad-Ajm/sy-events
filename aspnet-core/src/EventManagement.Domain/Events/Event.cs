@@ -25,6 +25,7 @@ namespace EventManagement.Events
         public int? MaxCapacity { get; set; }
         public bool IsApproved { get; set; }
         public EventStatus Status { get; set; }
+        public EventManagement.Enums.EventKind Kind { get; set; }
         public string ImageUrl { get; set; }
         public string ThumbnailUrl { get; set; }
         public Guid CategoryId { get; set; }
@@ -59,6 +60,7 @@ namespace EventManagement.Events
             CityId = cityId;
             OrganizerId = organizerId;
             Status = EventStatus.Draft;
+            Kind = EventManagement.Enums.EventKind.Event;
             IsApproved = false;
 
             Bookings = new HashSet<Booking>();

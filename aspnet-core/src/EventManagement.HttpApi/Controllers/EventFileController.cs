@@ -13,12 +13,14 @@ using Volo.Abp.Domain.Repositories;
 using EventManagement.Events;
 using EventManagement.Events.Dtos; // DTOs for upload results and file data
 using EventManagement.Permissions; // Permission constants
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace EventManagement.Controllers
 {
     [ApiController]
     [Route("api/app/event/{eventId}/files")]
     [Authorize]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class EventFileController : AbpControllerBase
     {
         private readonly IRepository<EventFile, Guid> _fileRepository;

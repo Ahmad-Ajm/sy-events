@@ -1,4 +1,16 @@
+import * as Calendar from './calendar';
+import * as Controllers from './controllers';
 import * as Enums from './enums';
 import * as Events from './events';
+import * as FeaturedBoxes from './featured-boxes';
+import * as HomeSlider from './home-slider';
+import * as Meetings from './meetings';
+import * as Microsoft from './microsoft';
+import * as Notifications from './notifications';
+import * as Reports from './reports';
+import * as Settings from './settings';
+import * as Social from './social';
+import * as Users from './users';
+export * from './event-image.service';
 export * from './event.service';
-export { Enums, Events };
+export { Calendar, Controllers, Enums, Events, FeaturedBoxes, HomeSlider, Meetings, Microsoft, Notifications, Reports, Settings, Social, Users };

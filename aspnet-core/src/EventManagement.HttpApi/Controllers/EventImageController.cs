@@ -4,10 +4,12 @@ using EventManagement.Events;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace EventManagement.Controllers;
 
 [Route("api/app/event-image")] 
+[ApiExplorerSettings(IgnoreApi = true)]
 public class EventImageController : AbpController
 {
     private readonly IEventImageAppService _eventImageAppService;
@@ -29,7 +31,7 @@ public class EventImageController : AbpController
     public async Task<FileContentResult> GetAsync(Guid eventId)
     {
         var bytes = await _eventImageAppService.GetAsync(eventId);
-        return File(bytes, "application/octet-stream");
+        return File(bytes, "image/jpeg");
     }
 
     [HttpDelete]

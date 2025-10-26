@@ -42,20 +42,48 @@ export class CalendarService {
 
   // تعليق: جلب فعاليات المستخدم مع الحالة اللونية
   getUserEventsWithStatus(): Observable<CalendarEventItem[]> {
-    // استدعاء API الفعلي المتاح: /api/app/calendar/my-events
-    return this.rest.request<any, CalendarEventItem[]>({
+    // استدعاء API الفعلي: /api/app/calendar/my-events ثم تحويل النتائج بإضافة ألوان حسب الحالة
+    return this.rest.request<any, import('../proxy/calendar/models').CalendarEventItemDto[]>({
       method: 'GET',
       url: '/api/app/calendar/my-events'
-    }, { apiName: 'Default' });
+    }, { apiName: 'Default' }).pipe(
+      map(items => items.map(i => ({
+        id: i.id as string,
+        title: i.title,
+        start: new Date(i.start as string),
+        end: new Date(i.end as string),
+        backgroundColor: this.colorMap[i.status as keyof typeof this.colorMap] ?? this.colorMap.upcomingNotFollowed,
+        borderColor: this.colorMap[i.status as keyof typeof this.colorMap] ?? this.colorMap.upcomingNotFollowed,
+        extendedProps: {
+          location: i.location,
+          description: i.description,
+          status: i.status as any
+        }
+      } as CalendarEventItem)))
+    );
   }
 
   // تعليق: جلب فعاليات بفترة زمنية محددة
   getEventsByDateRange(start: Date, end: Date): Observable<CalendarEventItem[]> {
-    return this.rest.request<any, CalendarEventItem[]>({
+    return this.rest.request<any, import('../proxy/calendar/models').CalendarEventItemDto[]>({
       method: 'GET',
       url: '/api/app/calendar/events-by-range',
       params: { start: start.toISOString(), end: end.toISOString() }
-    }, { apiName: 'Default' });
+    }, { apiName: 'Default' }).pipe(
+      map(items => items.map(i => ({
+        id: i.id as string,
+        title: i.title,
+        start: new Date(i.start as string),
+        end: new Date(i.end as string),
+        backgroundColor: this.colorMap[i.status as keyof typeof this.colorMap] ?? this.colorMap.upcomingNotFollowed,
+        borderColor: this.colorMap[i.status as keyof typeof this.colorMap] ?? this.colorMap.upcomingNotFollowed,
+        extendedProps: {
+          location: i.location,
+          description: i.description,
+          status: i.status as any
+        }
+      } as CalendarEventItem)))
+    );
   }
 
   // تعليق: تحويل EventDto إلى CalendarEventItem

@@ -1,0 +1,8 @@
+{
+  "name": "Event Webhook Ingest",
+  "nodes": [
+    { "parameters": { "path": "events-webhook", "methods": ["POST"] }, "name": "Webhook", "type": "n8n-nodes-base.webhook" },
+    { "parameters": { "functionCode": "return [{ json: { received: true, body: item.json } }];" }, "name": "Confirm", "type": "n8n-nodes-base.function" }
+  ],
+  "connections": { "Webhook": { "main": [ [ { "node": "Confirm", "type": "main", "index": 0 } ] ] } }
+}

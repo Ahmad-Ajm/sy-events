@@ -19,6 +19,7 @@ namespace EventManagement.Events.Dtos
         public EventStatus Status { get; set; }
         public string ImageUrl { get; set; }
         public string ThumbnailUrl { get; set; }
+        public EventKind Kind { get; set; }
 
         public string CategoryName { get; set; }
         public string CategoryNameEn { get; set; }

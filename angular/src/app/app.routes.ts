@@ -16,12 +16,20 @@ export const appRoutes: Routes = [
     loadChildren: () => import('./admin/home-slider/home-slider.routes').then(m => m.adminHomeSliderRoutes),
   },
   {
+    path: 'admin/featured-boxes',
+    loadChildren: () => import('./admin/featured-boxes/featured-boxes.routes').then(m => m.adminFeaturedBoxesRoutes),
+  },
+  {
     path: 'admin-approvals',
     loadChildren: () => import('./admin/approvals/approvals.routes').then(m => m.approvalsRoutes),
   },
   {
     path: 'account',
     loadChildren: () => import('@abp/ng.account').then(m => m.createRoutes()),
+  },
+  {
+    path: 'register-viewer',
+    loadComponent: () => import('./account/register-viewer/register-viewer.component').then(m => m.RegisterViewerComponent),
   },
   {
     path: 'calendar',

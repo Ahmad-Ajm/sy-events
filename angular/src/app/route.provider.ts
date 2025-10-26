@@ -80,7 +80,7 @@ function configureRoutes(routesService: RoutesService) {
         iconClass: 'fas fa-calendar',
         order: 50,
         layout: eLayoutType.application,
-        requiredPolicy: 'AbpIdentity.Users', // تعليق: يتطلب تسجيل دخول (أي مستخدم مسجل)
+        // تعليق: متاح لجميع المستخدمين المسجلين - authGuard في routes يكفي
       },
     ]);
   };

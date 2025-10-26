@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, computed, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { HomeSliderService } from '../../../proxy/home-slider/home-slider.service';
-import { AppSettingsDto, CreateUpdateHomeSliderItemDto, HomeSliderItemDto, SliderItemType, UpdateAppSettingsDto } from '../../../proxy/home-slider/models';
+import { AppSettingsDto, UpdateAppSettingsDto } from '../../../proxy/settings/dtos/models';
+import { CreateUpdateHomeSliderItemDto, HomeSliderItemDto } from '../../../proxy/home-slider/dtos/models';
+import { SliderItemType } from '../../../proxy/home-slider/slider-item-type.enum';
 import { finalize } from 'rxjs/operators';
 
 @Component({

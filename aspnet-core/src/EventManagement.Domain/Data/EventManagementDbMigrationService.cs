@@ -50,7 +50,7 @@ public class EventManagementDbMigrationService : ITransientDependency
         Logger.LogInformation("Started database migrations...");
 
         await MigrateDatabaseSchemaAsync();
-        await SeedDataAsync();
+        await SeedDataAsync(); // Re-enabled after schema migration
 
         Logger.LogInformation($"Successfully completed host database migrations.");
 
@@ -75,7 +75,7 @@ public class EventManagementDbMigrationService : ITransientDependency
                     }
                 }
 
-                await SeedDataAsync(tenant);
+                await SeedDataAsync(tenant); // Re-enabled after schema migration
             }
 
             Logger.LogInformation($"Successfully completed {tenant.Name} tenant database migrations.");

@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: {{DB_USER}}
+      POSTGRES_PASSWORD: {{DB_PASSWORD}}
+      POSTGRES_DB: {{DB_NAME}}
+    ports:
+      - "{{DB_PORT}}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  redis:
+    image: redis:7
+    ports:
+      - "{{REDIS_PORT}}:6379"
+  api:
+    build: ../..
+    environment:
+      ConnectionStrings__Default: Host=db;Port=5432;Database={{DB_NAME}};Username={{DB_USER}};Password={{DB_PASSWORD}}
+      AuthServer__Authority: {{AUTH_AUTHORITY}}
+    depends_on:
+      - db
+    ports:
+      - "{{API_PORT}}:443"
+  web:
+    working_dir: /app/angular
+    image: node:20
+    command: sh -c "npm install && npm start"
+    volumes:
+      - ../..:/app
+    ports:
+      - "{{WEB_PORT}}:4200"
+    environment:
+      BACKEND_URL: https://localhost:{{API_PORT}}
+volumes:
+  db_data:

@@ -1,0 +1,30 @@
+{
+  "App": {
+    "SelfUrl": "{{BACKEND_SELF_URL}}",
+    "ClientUrl": "{{FRONTEND_URL}}",
+    "CorsOrigins": "{{CORS_ORIGINS}}",
+    "RedirectAllowedUrls": "{{REDIRECT_URLS}}"
+  },
+  "ConnectionStrings": {
+    "Default": "Host={{DB_HOST}};Port={{DB_PORT}};Database={{DB_NAME}};Username={{DB_USER}};Password={{DB_PASSWORD}}"
+  },
+  "AuthServer": {
+    "Authority": "{{AUTH_AUTHORITY}}",
+    "RequireHttpsMetadata": false,
+    "SwaggerClientId": "{{SWAGGER_CLIENT_ID}}"
+  },
+  "AbpBlobStoring": {
+    "Containers": {
+      "event-images": {
+        "Provider": "FileSystem",
+        "UseTenantContainerName": false,
+        "FileSystem": {
+          "BasePath": "upload"
+        }
+      }
+    }
+  },
+  "StringEncryption": {
+    "DefaultPassPhrase": "{{ENCRYPTION_PASSPHRASE}}"
+  }
+}

@@ -1,0 +1,12 @@
+# تأكد أن PostgreSQL يعمل
+Test-NetConnection -ComputerName localhost -Port 5432
+
+# تشغيل DbMigrator (مسار صريح لتفادي أخطاء cd)
+dotnet run --project "D:\NBS-Venture\Event-Management-Platform\CS-SY-Events\aspnet-core\src\EventManagement.DbMigrator\EventManagement.DbMigrator.csproj" --no-build
+
+# بعد نجاح المايغريشن: أعد تشغيل الـ API
+cd "D:\NBS-Venture\Event-Management-Platform\CS-SY-Events\aspnet-core\src\EventManagement.HttpApi.Host"
+dotnet run --no-build
+
+# التحقق من Swagger JSON (يجب 200)
+curl.exe -sk -o NUL -w "%{http_code}" https://localhost:44388/swagger/v1/swagger.json

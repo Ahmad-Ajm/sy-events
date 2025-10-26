@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: Generic App API
+  version: 1.0.0
+servers:
+  - url: {{BACKEND_URL}}
+paths:
+  /api/app/resource:
+    get:
+      summary: List resources
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Create resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUpdateResourceDto'
+      responses:
+        '200': { description: OK }
+  /api/app/resource/{id}:
+    get:
+      summary: Get resource
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+components:
+  schemas:
+    CreateUpdateResourceDto:
+      type: object
+      properties:
+        name: { type: string }
+        description: { type: string }
+        startAt: { type: string, format: date-time }
+        endAt: { type: string, format: date-time }
+        location: { type: string }
+        taxonomyAId: { type: string, format: uuid }
+        taxonomyBId: { type: string, format: uuid }
+      required: [ name, description, startAt, endAt, location, taxonomyAId, taxonomyBId ]

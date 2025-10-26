@@ -18,6 +18,15 @@ export class EventService {
     { apiName: this.apiName,...config });
   
 
+  bulkApprove = (ids: string[], config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: '/api/app/event/bulk-approve',
+      body: ids,
+    },
+    { apiName: this.apiName,...config });
+  
+
   create = (input: CreateUpdateEventDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, EventDto>({
       method: 'POST',
@@ -47,7 +56,15 @@ export class EventService {
     this.restService.request<any, PagedResultDto<EventDto>>({
       method: 'GET',
       url: '/api/app/event',
-      params: { filter: input.filter, categoryId: input.categoryId, cityId: input.cityId, status: input.status, startDate: input.startDate, endDate: input.endDate, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { filter: input.filter, categoryId: input.categoryId, cityId: input.cityId, status: input.status, startDate: input.startDate, endDate: input.endDate, organizerId: input.organizerId, organizerFilter: (input as any).organizerFilter, isUpcoming: input.isUpcoming, minAttendees: input.minAttendees, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getPending = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, EventDto[]>({
+      method: 'GET',
+      url: '/api/app/event/pending',
     },
     { apiName: this.apiName,...config });
   
@@ -100,23 +117,6 @@ export class EventService {
       url: `/api/app/event/${id}/reject`,
     },
     { apiName: this.apiName,...config });
-
-  // موافقات: جلب الفعاليات المعلقة
-  getPending = (config?: Partial<Rest.Config>) =>
-    this.restService.request<any, EventDto[]>({
-      method: 'GET',
-      url: '/api/app/event/pending-events',
-    },
-    { apiName: this.apiName, ...config });
-
-  // موافقات: موافقة جماعية
-  bulkApprove = (ids: string[], config?: Partial<Rest.Config>) =>
-    this.restService.request<any, void>({
-      method: 'POST',
-      url: '/api/app/event/bulk-approve',
-      body: ids,
-    },
-    { apiName: this.apiName, ...config });
   
 
   update = (id: string, input: CreateUpdateEventDto, config?: Partial<Rest.Config>) =>

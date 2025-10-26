@@ -1,0 +1,30 @@
+# Frontend Routes & Pages — Template (Domain-Agnostic)
+
+## Routes (example)
+```ts
+routesService.add([
+  { path: '/', name: '::Menu:Home', iconClass: 'fas fa-home', order: 1 },
+  { path: '/resources', name: '::Menu:Resources', iconClass: 'fas fa-database', order: 2, requiredPolicy: 'App.Resource' },
+  { path: '/relations', name: '::Menu:Relations', iconClass: 'fas fa-link', order: 3, requiredPolicy: 'App.Relation' }
+]);
+```
+
+## Components to generate (suggested)
+- resources/resource-list
+- resources/resource-detail
+- resources/resource-create
+- resources/resource-edit
+
+## Forms (Reactive)
+- الحقول النموذجية: name, description, startAt, endAt, location, taxonomyAId, taxonomyBId.
+
+## Proxy Generation
+```
+abp generate-proxy -t ng
+```
+
+## i18n Keys
+- locales/ar.json و en.json (مفاتيح عامة مثل Menu:Resources/Relations).
+
+## LeptonX
+- اتبع frontend/leptonx-setup.md.

@@ -25,6 +25,7 @@ export class EventListComponent implements OnInit {
   selectedEvent = {} as EventDto;
   form: FormGroup;
   EventStatus = EventStatus;
+  private readonly fallbackImage = 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=400&fit=crop';
 
   // تعليق: فلاتر متقدمة
   filters: GetEventsInput = {
@@ -35,6 +36,7 @@ export class EventListComponent implements OnInit {
     startDate: null,
     endDate: null,
     organizerId: null,
+    organizerFilter: '',
     isUpcoming: null,
     minAttendees: null,
     skipCount: 0,
@@ -152,7 +154,8 @@ export class EventListComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
     const file = input.files[0];
-    this.imageService.upload(eventId, file).subscribe(() => this.list.get());
+    // تعليق: IFormFile expects specific structure - pass the file directly
+    this.imageService.upload(eventId, file as any).subscribe(() => this.list.get());
     input.value = '';
   }
 
@@ -167,5 +170,31 @@ export class EventListComponent implements OnInit {
     }
     // If authenticated, navigate to event detail page (to be implemented)
     this.router.navigate(['/events', first.id]);
+  }
+
+  // تعليق: تحويل مسار الصورة ليتوافق مع بيئة التطوير والإنتاج
+  resolveImageUrl(url?: string | null): string {
+    if (!url) {
+      return this.fallbackImage;
+    }
+    const trimmed = url.trim();
+    if (/\/images\/events\/default/i.test(trimmed)) {
+      return this.fallbackImage;
+    }
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:') || trimmed.startsWith('/assets/')) {
+      return trimmed;
+    }
+    if (trimmed.startsWith('/images/')) {
+      return `https://localhost:44388${trimmed}`;
+    }
+    return trimmed || this.fallbackImage;
+  }
+
+  // تعليق: فallback عند فشل تحميل الصورة
+  onImgError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && img.src !== this.fallbackImage) {
+      img.src = this.fallbackImage;
+    }
   }
 }

@@ -40,6 +40,10 @@ namespace EventManagement.Events.Dtos
 
         public string ImageUrl { get; set; }
         public string ThumbnailUrl { get; set; }
+
+        // نوع الفعالية (فعالية/نشاط/مؤتمر)
+        [Required]
+        public EventManagement.Enums.EventKind Kind { get; set; }
     }
 }
 

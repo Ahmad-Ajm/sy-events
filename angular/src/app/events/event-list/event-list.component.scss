@@ -1,0 +1,74 @@
+// بطاقة فعالية بنمط Card مع تراكب نص داخل الصورة
+.event-card {
+  position: relative;
+  border: none;
+  overflow: hidden;
+  border-radius: .75rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.08);
+
+  .event-image {
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .overlay-top {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: .75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,0));
+    color: #fff;
+  }
+
+  .event-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(0,0,0,.5);
+  }
+
+  .event-date {
+    font-size: .9rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .overlay-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: .75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(0deg, rgba(0,0,0,.55), rgba(0,0,0,0));
+  }
+
+  .follow-btn {
+    color: #fff;
+    border-color: rgba(255,255,255,.7);
+  }
+}
+
+// تحسين أزرار التنقل في الجدول
+.btn-group .btn {
+  margin-inline-end: .35rem;
+}
+
+// تحسين تنسيق مجموعة الأزرار تحت البطاقة
+.event-actions {
+  gap: .5rem;
+  .btn-group {
+    .btn {
+      min-width: 34px;
+    }
+  }
+}
+

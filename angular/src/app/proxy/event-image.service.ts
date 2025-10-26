@@ -1,26 +1,39 @@
+import type { IFormFile } from './microsoft/asp-net-core/http/models';
+import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class EventImageService {
-  private readonly baseUrl = environment.apis.default.url + '/api/app/event-image';
+  apiName = 'Default';
+  
 
-  constructor(private http: HttpClient) {}
+  delete = (eventId: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'DELETE',
+      url: '/api/app/event-image',
+      params: { eventId },
+    },
+    { apiName: this.apiName,...config });
+  
 
-  upload(eventId: string, file: File) {
-    const form = new FormData();
-    form.append('file', file);
-    return this.http.post(`${this.baseUrl}/${eventId}`, form);
-  }
+  get = (eventId: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, number[]>({
+      method: 'GET',
+      url: '/api/app/event-image',
+      params: { eventId },
+    },
+    { apiName: this.apiName,...config });
+  
 
-  get(eventId: string) {
-    return this.http.get(`${this.baseUrl}/${eventId}`, { responseType: 'blob' });
-  }
+  upload = (eventId: string, file: IFormFile, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: `/api/app/event-image/upload/${eventId}`,
+      body: file,
+    },
+    { apiName: this.apiName,...config });
 
-  delete(eventId: string) {
-    return this.http.delete(`${this.baseUrl}/${eventId}`);
-  }
+  constructor(private restService: RestService) {}
 }
-
-

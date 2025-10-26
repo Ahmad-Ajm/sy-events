@@ -1,6 +1,30 @@
 import type { FullAuditedEntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
 import type { EventStatus } from '../../enums/event-status.enum';
 
+export interface EventFileDto extends FullAuditedEntityDto<string> {
+  eventId?: string;
+  fileName?: string;
+  originalFileName?: string;
+  filePath?: string;
+  fileType?: string;
+  mimeType?: string;
+  fileSize: number;
+  displayOrder: number;
+  thumbnailPath?: string;
+  width?: number;
+  height?: number;
+  downloadUrl?: string;
+  thumbnailUrl?: string;
+  fileSizeFormatted?: string;
+}
+
+export interface UploadFilesResultDto {
+  successCount: number;
+  failedCount: number;
+  errors: string[];
+  uploadedFiles: EventFileDto[];
+}
+
 export interface CreateUpdateEventDto {
   title: string;
   titleEn?: string;
@@ -57,6 +81,26 @@ export interface GetEventsInput extends PagedAndSortedResultRequestDto {
   startDate?: string;
   endDate?: string;
   organizerId?: string;
+  organizerFilter?: string;
   isUpcoming?: boolean;
   minAttendees?: number;
+}
+
+export interface CreateEventDiscussionDto {
+  eventId?: string;
+  message?: string;
+  parentId?: string;
+}
+
+export interface EventDiscussionDto extends FullAuditedEntityDto<string> {
+  eventId?: string;
+  userId?: string;
+  userName?: string;
+  userProfileImage?: string;
+  message?: string;
+  parentId?: string;
+  isHidden: boolean;
+  hiddenReason?: string;
+  replies: EventDiscussionDto[];
+  repliesCount: number;
 }
